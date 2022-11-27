@@ -4,11 +4,18 @@
     <h3>{{ user.age }}</h3>
 
     <button @click="setAge">Change age</button>
+
+    <div>
+      <input type="text" placeholder="First Name" @input="setFirstName"/>
+      <input type="text" placeholder="Last Name" @input="setLastName"/>
+      <h1>{{ fullName }}</h1>
+    </div>
   </section>
 </template>
 
 <script>
-import { ref, reactive, isReactive, isRef } from 'vue';
+import { ref, reactive, isReactive, isRef
+        , computed } from 'vue';
 
 export default {
   setup() {
@@ -16,6 +23,8 @@ export default {
     // const uName = ref('Maximilian');
     // const uAge = ref(31);
     const uAge = ref(31);
+    const firstName = ref('');
+    const lastName = ref('');
     const user = reactive({
       name: 'Maximilian',
       age: 31
@@ -48,6 +57,17 @@ export default {
       user.age = 40;
     }
 
+    function setFirstName(event) {
+      firstName.value = event.target.value;
+    }
+
+    function setLastName(event) {
+      lastName.value = event.target.value;
+    }
+
+    const fullName = computed(function() {
+      return firstName.value + ' ' + lastName.value;
+    });
 
     // data exposed to the template
     // BAD WAY to expose an object!
@@ -58,7 +78,10 @@ export default {
 
     return {
       user: user,
-      setAge: setNewAge
+      setAge: setNewAge,
+      setFirstName,
+      setLastName,
+      fullName
     }
   }
   /* data() {
