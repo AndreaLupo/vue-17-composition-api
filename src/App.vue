@@ -6,19 +6,27 @@
 </template>
 
 <script>
-import { 
-  // ref, 
-  reactive } from 'vue';
+import { ref, reactive, isReactive, isRef } from 'vue';
 
 export default {
   setup() {
     // creates a reactive string - saved in an object
     // const uName = ref('Maximilian');
     // const uAge = ref(31);
+    const uAge = ref(31);
     const user = reactive({
       name: 'Maximilian',
       age: 31
     });
+
+    console.log('Age:', uAge); // ref (non proxy)
+    console.log('User', user); // proxy
+
+    console.log(uAge.value); // simple variable!
+    console.log(user.name); // simple variable!
+
+    console.log(isRef(uAge), isReactive(user));
+    console.log(isRef(uAge.value), isReactive(user.name));
 
     setTimeout(function() {
       // uName.value = 'Max';
