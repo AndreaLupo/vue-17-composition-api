@@ -1,25 +1,48 @@
 <template>
   <section class="container">
-    <h2>{{ userName }}</h2>
+    <h2>{{ user.name }}</h2>
+    <h3>{{ user.age }}</h3>
   </section>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { 
+  // ref, 
+  reactive } from 'vue';
 
 export default {
   setup() {
     // creates a reactive string - saved in an object
-    const uName = ref('Maximilian');
+    // const uName = ref('Maximilian');
+    // const uAge = ref(31);
+    const user = reactive({
+      name: 'Maximilian',
+      age: 31
+    });
 
     setTimeout(function() {
-      uName.value = 'Max';
+      // uName.value = 'Max';
+      // uAge.value++;
+      /* user only on object with ref 
+      user.value.name = 'Max';
+      user.value.age++; 
+      */
+
+      // valid only with reactive
+      user.name = 'Max';
+      user.age++; 
     }, 2000);
 
     // data exposed to the template
+    // BAD WAY to expose an object!
+    /* return {
+      userName: user.value.name,
+      age: user.value.age
+    }; */
+
     return {
-      userName: uName
-    };
+      user: user
+    }
   }
   /* data() {
     return {
