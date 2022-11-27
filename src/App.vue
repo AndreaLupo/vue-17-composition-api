@@ -6,8 +6,8 @@
     <button @click="setAge">Change age</button>
 
     <div>
-      <input type="text" placeholder="First Name" @input="setFirstName"/>
-      <input type="text" placeholder="Last Name" @input="setLastName"/>
+      <input type="text" placeholder="First Name" v-model="firstName"/>
+      <input type="text" placeholder="Last Name" v-model="lastName"/>
       <h1>{{ fullName }}</h1>
     </div>
   </section>
@@ -15,7 +15,7 @@
 
 <script>
 import { ref, reactive, isReactive, isRef
-        , computed } from 'vue';
+        , computed, watch } from 'vue';
 
 export default {
   setup() {
@@ -69,6 +69,19 @@ export default {
       return firstName.value + ' ' + lastName.value;
     });
 
+    watch(uAge, function(newValue, oldValue) {
+      console.log('New value', newValue);
+      console.log('Old value', oldValue);
+    });
+
+    watch([uAge, user], function(newValues, oldValues) {
+      console.log('Old age:', oldValues[0]);
+      console.log('New age:', newValues[0]);
+      
+      console.log('Old user', oldValues[1]);
+      console.log('New user', newValues[1]);
+    });
+
     // data exposed to the template
     // BAD WAY to expose an object!
     /* return {
@@ -81,7 +94,9 @@ export default {
       setAge: setNewAge,
       setFirstName,
       setLastName,
-      fullName
+      fullName,
+      firstName,
+      lastName
     }
   }
   /* data() {
