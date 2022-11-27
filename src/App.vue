@@ -5,12 +5,27 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
-  data() {
+  setup() {
+    // creates a reactive string - saved in an object
+    const uName = ref('Maximilian');
+
+    setTimeout(function() {
+      uName.value = 'Max';
+    }, 2000);
+
+    // data exposed to the template
+    return {
+      userName: uName
+    };
+  }
+  /* data() {
     return {
       userName: 'Maximilian',
     };
-  },
+  }, */
 };
 </script>
 
