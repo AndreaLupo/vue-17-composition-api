@@ -2,6 +2,8 @@
   <section class="container">
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
+
+    <button @click="setAge">Change age</button>
   </section>
 </template>
 
@@ -41,6 +43,12 @@ export default {
       user.age++; 
     }, 2000);
 
+
+    function setNewAge() {
+      user.age = 40;
+    }
+
+
     // data exposed to the template
     // BAD WAY to expose an object!
     /* return {
@@ -49,14 +57,21 @@ export default {
     }; */
 
     return {
-      user: user
+      user: user,
+      setAge: setNewAge
     }
   }
   /* data() {
     return {
       userName: 'Maximilian',
     };
-  }, */
+  }, 
+  methods: {
+    setNewAge() {
+      this.age = 40;
+    }
+  }
+  */
 };
 </script>
 
