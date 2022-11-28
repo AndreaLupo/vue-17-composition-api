@@ -1,8 +1,6 @@
 <template>
   <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
-
+    <user-data :first-name="firstName" :last-name="lastName" :age="user.age"></user-data>
     <button @click="setAge">Change age</button>
 
     <div>
@@ -15,9 +13,14 @@
 
 <script>
 import { ref, reactive, isReactive, isRef
-        , computed, watch } from 'vue';
+        , computed, watch, toRefs } from 'vue';
+
+import UserData from './components/UserData.vue';
 
 export default {
+  components: {
+    UserData
+  },
   setup() {
     // creates a reactive string - saved in an object
     // const uName = ref('Maximilian');
@@ -52,6 +55,7 @@ export default {
       user.age++; 
     }, 2000);
 
+    toRefs(user);
 
     function setNewAge() {
       user.age = 40;
